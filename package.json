@@ -1,0 +1,40 @@
+{
+  "name": "simple-ecomm-backend-typescript",
+  "version": "1.0.0",
+  "description": "Simple backend application for a ecommerce website",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node-dev src/server/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ansarisaqlain987/simple-ecomm-backend-typescript.git"
+  },
+  "keywords": [
+    "typescript",
+    "node",
+    "express",
+    "e-commerce",
+    "tests"
+  ],
+  "author": "Saqlain Ansari",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ansarisaqlain987/simple-ecomm-backend-typescript/issues"
+  },
+  "homepage": "https://github.com/ansarisaqlain987/simple-ecomm-backend-typescript#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^8.1.0",
+    "pino": "^8.17.2",
+    "pino-pretty": "^10.3.1",
+    "ts-node-dev": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^20.11.6",
+    "@types/pino": "^7.0.5",
+    "typescript": "^5.3.3"
+  }
+}
