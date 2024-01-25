@@ -3,8 +3,8 @@ export const ValidationSchema = {
     addAdmin: {
       email: 'required|email',
       password: 'required|minLength:8',
-      firstName: 'string',
-      lastName: 'string',
+      firstName: 'string|required',
+      lastName: 'string|required',
     },
     updateAdmin: {
       email: 'required|email',
