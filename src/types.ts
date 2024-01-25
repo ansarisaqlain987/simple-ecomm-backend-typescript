@@ -48,9 +48,9 @@ export interface IReview {
 }
 
 // types
-export type ITokenData = {
+export interface ITokenData {
   id: string;
-};
+}
 export type Express = Ex;
 export type Router = Rt;
 export type Request = ExpressRequest & { user?: ITokenData };
