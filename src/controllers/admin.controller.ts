@@ -1,15 +1,17 @@
-import { Controller, IAdmin, Request, Response } from '../types';
+import { Controller, IAdmin, Request, Response } from '../types'
+import { Logger } from '../utils/logger.util'
 
 export const addAdmin: Controller = (
   request: Request<IAdmin>,
   response: Response,
 ) => {
-  const requestBody = request.body;
+  const requestBody = request.body
+  Logger.info(requestBody)
   return response.send({
     data: null,
     errors: null,
-  });
-};
+  })
+}
 
 export const updateAdmin: Controller = (
   request: Request,
@@ -18,8 +20,8 @@ export const updateAdmin: Controller = (
   return response.send({
     data: null,
     errors: null,
-  });
-};
+  })
+}
 
 export const resetPassword: Controller = (
   request: Request,
@@ -28,15 +30,15 @@ export const resetPassword: Controller = (
   return response.send({
     data: null,
     errors: null,
-  });
-};
+  })
+}
 
 export const details: Controller = (request: Request, response: Response) => {
   return response.send({
     data: null,
     errors: null,
-  });
-};
+  })
+}
 
 export const adminLogin: Controller = (
   request: Request,
@@ -45,5 +47,5 @@ export const adminLogin: Controller = (
   return response.send({
     data: null,
     errors: null,
-  });
-};
+  })
+}
