@@ -1,3 +1,1 @@
-
-
-npx prettier 'src/**/*.{js,ts,mjs,cjs,json}' --write .
+npx prettier 'src/**/*.{js,ts,mjs,cjs,json}' --write

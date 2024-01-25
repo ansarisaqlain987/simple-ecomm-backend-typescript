@@ -6,10 +6,10 @@ import { Logger } from './utils/logger.util';
 
 const data = config();
 if (data.error) {
-    Logger.info("Unable to start server due to the environment issue");
-    process.exit();
+  Logger.info('Unable to start server due to the environment issue');
+  process.exit();
 }
-Logger.info("Environment variables parsed...");
+Logger.info('Environment variables parsed...');
 const app: Express = express();
 
 app.use(express.json());
