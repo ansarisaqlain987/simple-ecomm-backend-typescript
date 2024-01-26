@@ -1,8 +1,45 @@
-import { AllowedUsers, NextFunction, Request, Response } from '../types'
+import { JWT_SECRET, SECRET } from '../config/app.config'
+import {
+  AllowedUsers,
+  ITokenData,
+  NextFunction,
+  Request,
+  Response,
+} from '../types'
+import { decrypt, verifyToken } from '../utils/jwt.util'
+import { Logger } from '../utils/logger.util'
 
 export const authenticateRequest = (userType?: AllowedUsers) => {
   return (request: Request, response: Response, next: NextFunction) => {
-    console.log(userType)
+    const token = request.get('authorization')
+    if (!token) {
+      return response.status(401).send({
+        data: null,
+        errors: ['Please provide a valid authentication token'],
+      })
+    }
+
+    try {
+      const decryptToken = decrypt(token, SECRET)
+      const obj: ITokenData = verifyToken(
+        decryptToken,
+        JWT_SECRET,
+      ) as ITokenData
+      request['user'] = obj as ITokenData
+
+      if (userType && userType !== obj.type) {
+        return response.status(403).send({
+          data: null,
+          errors: ['Unauthorized access'],
+        })
+      }
+    } catch (err) {
+      Logger.error(err)
+      return response.status(401).send({
+        data: null,
+        errors: ['Invalid token'],
+      })
+    }
     next()
   }
 }

@@ -54,6 +54,8 @@ export type IReview = {
 // types
 export type ITokenData = {
   id: string
+  email: string
+  type: AllowedUsers
 }
 export type ResponseType<T = any> = {
   data: T

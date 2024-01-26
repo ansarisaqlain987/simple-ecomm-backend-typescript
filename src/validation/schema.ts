@@ -7,7 +7,6 @@ export const ValidationSchema = {
       lastName: 'string|required',
     },
     updateAdmin: {
-      email: 'required|email',
       firstName: 'string',
       lastName: 'string',
     },
@@ -20,4 +19,4 @@ export const ValidationSchema = {
       password: 'required',
     },
   },
-};
+}

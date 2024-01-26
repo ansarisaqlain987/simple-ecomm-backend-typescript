@@ -13,6 +13,6 @@ export const createToken = (data: string, key: string): string => {
   return jwt.sign(data, key)
 }
 
-export const verifyToken = (token: string, key: string): string => {
-  return jwt.verify(token, key) as string
+export const verifyToken = (token: string, key: string) => {
+  return jwt.verify(token, key)
 }
