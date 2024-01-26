@@ -1,20 +1,22 @@
-import express from 'express';
-import { getRoutes } from './routes';
-import { Express } from './types';
-import { config } from 'dotenv';
-import { Logger } from './utils/logger.util';
+import express from 'express'
+import { getRoutes } from './routes'
+import { Express } from './types'
+import { config } from 'dotenv'
+import { Logger } from './utils/logger.util'
+import { ConnectDB } from './config/app.config'
 
-const data = config();
+const data = config()
 if (data.error) {
-  Logger.info('Unable to start server due to the environment issue');
-  process.exit();
+  Logger.info('Unable to start server due to the environment issue')
+  process.exit()
 }
-Logger.info('Environment variables parsed...');
-const app: Express = express();
+Logger.info('Environment variables parsed...')
+const app: Express = express()
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+;(async () => await ConnectDB())()
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
-getRoutes(app);
+getRoutes(app)
 
-export const App = app;
+export const App = app

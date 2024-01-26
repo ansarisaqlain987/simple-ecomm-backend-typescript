@@ -1,8 +1,8 @@
 import { AllowedUsers, NextFunction, Request, Response } from '../types'
 
 export const authenticateRequest = (userType?: AllowedUsers) => {
-  console.log(userType)
   return (request: Request, response: Response, next: NextFunction) => {
+    console.log(userType)
     next()
   }
 }

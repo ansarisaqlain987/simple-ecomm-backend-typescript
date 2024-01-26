@@ -2,8 +2,8 @@ import { Validator } from 'node-input-validator'
 import { NextFunction, Request, Response } from '../types'
 
 export const validate = (schema: object, source: 'body' | 'query' = 'body') => {
-  console.log(source)
   return async (request: Request, response: Response, next: NextFunction) => {
+    console.log(source)
     const v = new Validator(request.body as object, schema)
     const matched = await v.check()
     if (!matched) {

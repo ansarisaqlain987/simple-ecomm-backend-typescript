@@ -6,6 +6,7 @@ import {
   Express as Ex,
   Router as Rt,
 } from 'express'
+import { Document as MDocument, Types } from 'mongoose'
 
 // Interfaces
 export type IUser = {
@@ -72,13 +73,17 @@ export enum AllowedUsers {
   ENDUSER = 'USER',
   ADMIN = 'ADMIN',
 }
-export type Controller<> = (
+export type Controller = (
   request: Request,
   response: Response,
   next?: NextFunction,
-) => Response
+) => Response | Promise<Response>
 export type Middleware = (
   request: Request,
   response: Response,
   next?: NextFunction,
 ) => Response | void
+export type Document<T = any> = MDocument<unknown, object, T> &
+  T & {
+    _id: Types.ObjectId
+  }

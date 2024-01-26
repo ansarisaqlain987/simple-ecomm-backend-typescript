@@ -1,6 +1,7 @@
-import { App } from '../app';
-import { Logger } from '../utils/logger.util';
+import { App } from '../app'
+import { PORT } from '../config/app.config'
+import { Logger } from '../utils/logger.util'
 
-App.listen(3000, () => {
-  Logger.info('Server started at port 3000');
-});
+App.listen(PORT, () => {
+  Logger.info('Server started at port ' + PORT)
+})
