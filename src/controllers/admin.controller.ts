@@ -82,21 +82,66 @@ export const updateAdmin: Controller = async (
   }
 }
 
-export const resetPassword: Controller = (
-  request: Request,
+type InputResetPassword = {
+  password: string
+  newPassword: string
+}
+export const resetPassword: Controller = async (
+  request: Request<InputResetPassword>,
   response: Response,
 ) => {
-  return response.send({
-    data: null,
-    errors: null,
-  })
+  try {
+    const { password, newPassword } = request.body
+    const { email = '', id = '' } = request?.user ?? {}
+    const record = await getAdminByEmail(email, { _id: 1, password: 1 })
+    if (!record) {
+      return response.status(401).send({
+        data: null,
+        errors: ['User with the email does not exist'],
+      })
+    }
+    const storedPassword = decrypt(record?.password, SECRET)
+    if (password !== storedPassword) {
+      return response.status(401).send({
+        data: null,
+        errors: ['Invalid password'],
+      })
+    }
+    const encryptedPassword: string = encrypt(newPassword, SECRET)
+    const admin: Partial<IAdmin> = await updateAdminDetails(id, {
+      password: encryptedPassword,
+    })
+    return response.status(200).send({
+      data: {
+        email: admin.email,
+      },
+      errors: null,
+    })
+  } catch (err) {
+    Logger.error(err)
+    return getErrorResponse(response, err)
+  }
 }
 
-export const details: Controller = (request: Request, response: Response) => {
-  return response.send({
-    data: null,
-    errors: null,
-  })
+export const details: Controller = async (
+  request: Request,
+  response: Response<Partial<IAdmin>>,
+) => {
+  try {
+    const { email = '' } = request?.user ?? {}
+    const details = await getAdminByEmail(email)
+    return response.status(200).send({
+      data: {
+        firstName: details?.firstName,
+        lastName: details?.lastName,
+        email: details?.email,
+      },
+      errors: null,
+    })
+  } catch (err) {
+    Logger.error(err)
+    return getErrorResponse(response, err)
+  }
 }
 
 type InputAdminLogin = Pick<IAdmin, 'email' | 'password'>
