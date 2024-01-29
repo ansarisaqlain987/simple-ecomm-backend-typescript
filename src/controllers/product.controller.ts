@@ -21,13 +21,6 @@ export const addProduct: Controller = async (
       price,
     })
 
-    if (record) {
-      return response.status(400).send({
-        data: null,
-        errors: ['Admin already exist with the provided email'],
-      })
-    }
-
     return response.status(201).send({
       data: {
         name,

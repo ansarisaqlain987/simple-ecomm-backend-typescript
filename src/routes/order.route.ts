@@ -13,7 +13,7 @@ import { validate } from '../middlewares/validator.middleware'
 import { Router } from '../types'
 import { ValidationSchema } from '../validation/schema'
 
-export const getProductRoutes = (router: Router) => {
+export const getOrderRoutes = (router: Router) => {
   router.post(
     '/place',
     validate(ValidationSchema.order.placeOrder),
@@ -23,7 +23,7 @@ export const getProductRoutes = (router: Router) => {
 
   router.get('/details/:id', authenticateForAny, getOrderDetails)
 
-  router.get('/orders', authenticateForUser, getMyOrders) // user orders
+  router.get('/', authenticateForUser, getMyOrders) // user orders
 
   router.get('/list', authenticateForAdmin, listOrders)
 

@@ -149,37 +149,42 @@ export const adminLogin: Controller = async (
   request: Request<InputAdminLogin>,
   response: Response,
 ) => {
-  const { email, password } = request?.body ?? {}
-  const record = await getAdminByEmail(email, { _id: 1, password: 1 })
-  if (!record) {
-    return response.status(401).send({
-      data: null,
-      errors: ['User with the email does not exist'],
-    })
-  }
-  const storedPassword = decrypt(record?.password, SECRET)
-  if (password !== storedPassword) {
-    return response.status(401).send({
-      data: null,
-      errors: ['Invalid password'],
-    })
-  }
+  try {
+    const { email, password } = request?.body ?? {}
+    const record = await getAdminByEmail(email, { _id: 1, password: 1 })
+    if (!record) {
+      return response.status(401).send({
+        data: null,
+        errors: ['User with the email does not exist'],
+      })
+    }
+    const storedPassword = decrypt(record?.password, SECRET)
+    if (password !== storedPassword) {
+      return response.status(401).send({
+        data: null,
+        errors: ['Invalid password'],
+      })
+    }
 
-  const obj: ITokenData = {
-    email: email,
-    id: record?._id?.toString(),
-    type: AllowedUsers.ADMIN,
-  }
-
-  const token = createToken(JSON.stringify(obj), JWT_SECRET)
-  const encryptedToken = encrypt(token, SECRET)
-
-  return response.status(200).send({
-    data: {
-      token: encryptedToken,
+    const obj: ITokenData = {
       email: email,
-      id: record?._id,
-    },
-    errors: null,
-  })
+      id: record?._id?.toString(),
+      type: AllowedUsers.ADMIN,
+    }
+
+    const token = createToken(JSON.stringify(obj), JWT_SECRET)
+    const encryptedToken = encrypt(token, SECRET)
+
+    return response.status(200).send({
+      data: {
+        token: encryptedToken,
+        email: email,
+        id: record?._id,
+      },
+      errors: null,
+    })
+  } catch (err) {
+    Logger.error(err)
+    return getErrorResponse(response, err)
+  }
 }

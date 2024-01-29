@@ -27,7 +27,7 @@ export const getProductRoutes = (router: Router) => {
 
   router.post('/delete/:id', authenticateForAdmin, deleteProduct)
 
-  router.get('/:id', productDetails)
+  router.get('/details/:id', productDetails)
 
   router.get('/list', productList)
 

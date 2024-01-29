@@ -11,7 +11,7 @@ export const ValidationSchema = {
       lastName: 'string',
     },
     resetPassword: {
-      currentPassword: 'required|string|minLength:8',
+      password: 'required|string|minLength:8',
       newPassword: 'required|string|minLength:8',
     },
     login: {
@@ -31,7 +31,7 @@ export const ValidationSchema = {
       lastName: 'string',
     },
     resetPassword: {
-      currentPassword: 'required|string|minLength:8',
+      password: 'required|string|minLength:8',
       newPassword: 'required|string|minLength:8',
     },
     login: {
@@ -44,13 +44,13 @@ export const ValidationSchema = {
       name: 'required|string',
       description: 'required|string',
       images: 'required',
-      price: 'required|number',
+      price: 'required|decimal',
     },
     updateProduct: {
       name: 'required|string',
       description: 'required|string',
       images: 'required',
-      price: 'required|number',
+      price: 'required|decimal',
     },
     deleteProduct: {
       id: 'required|string',
@@ -62,13 +62,13 @@ export const ValidationSchema = {
   order: {
     placeOrder: {
       productId: 'required|string',
-      quantity: 'required|number|min:1',
+      quantity: 'required|decimal|min:1',
     },
   },
   review: {
     addReview: {
       product: 'string|required',
-      rating: 'number|required|min:-1|max:5',
+      rating: 'required|decimal|min:-1|max:5',
       comment: 'required|string',
     },
   },
