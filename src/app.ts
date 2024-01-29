@@ -5,16 +5,17 @@ import { config } from 'dotenv'
 import { Logger } from './utils/logger.util'
 import { ConnectDB } from './config/app.config'
 
-const data = config()
-if (data.error) {
-  Logger.info('Unable to start server due to the environment issue')
-  process.exit()
+if (process.env.NODE_ENV !== 'prod') {
+  const data = config()
+  if (data.error) {
+    Logger.info('Unable to start server due to the environment issue')
+    process.exit()
+  }
+  Logger.info('Environment variables parsed...')
 }
-Logger.info('Environment variables parsed...')
 const app: Express = express()
-;(async () => await ConnectDB())()
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+
+ConnectDB()
 
 getRoutes(app)
 
