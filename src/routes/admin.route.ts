@@ -11,7 +11,6 @@ import { Router } from '../types'
 import { ValidationSchema } from '../validation/schema'
 
 export const getAdminRoutes = (router: Router) => {
-  // ----- POST -----
   router.post('/', validate(ValidationSchema.admin.addAdmin), addAdmin)
 
   router.post(
@@ -30,7 +29,6 @@ export const getAdminRoutes = (router: Router) => {
 
   router.post('/login', validate(ValidationSchema.admin.login), adminLogin)
 
-  // ----- GET -----
   router.get('/', authenticateForAdmin, details)
 
   return router

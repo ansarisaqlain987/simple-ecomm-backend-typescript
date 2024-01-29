@@ -29,6 +29,12 @@ export const getProductById = (
   return ProductModel.findById(id).exec()
 }
 
+export const getProductByIds = (
+  ids: string[],
+): Promise<Document<IProduct>[]> => {
+  return ProductModel.find({ _id: { $in: ids } }).exec()
+}
+
 export const getProductList = (
   projection?: string | string[] | Record<string, number | boolean | object>,
 ) => {

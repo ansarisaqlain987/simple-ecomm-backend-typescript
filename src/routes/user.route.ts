@@ -5,27 +5,37 @@ import {
   resetPassword,
   updateUser,
   userList,
-} from '../controllers/user.controller';
+} from '../controllers/user.controller'
 import {
   authenticateForAdmin,
   authenticateForUser,
-} from '../middlewares/auth.middleware';
-import { Router } from '../types';
+} from '../middlewares/auth.middleware'
+import { validate } from '../middlewares/validator.middleware'
+import { Router } from '../types'
+import { ValidationSchema } from '../validation/schema'
 
 export const getUserRoutes = (router: Router) => {
-  // ========== Admin APIs ==========
-  // ----- POST -----
-  router.post('/', registerUser);
-  router.post('/update', authenticateForUser, updateUser);
-  router.post('/resetPassword', authenticateForUser, resetPassword);
-  router.post('/login', login);
-  //-----------------
+  router.post('/', validate(ValidationSchema.user.addUser), registerUser)
 
-  // ----- GET -----
-  router.get('/', authenticateForUser, details);
-  router.get('/list', authenticateForAdmin, userList);
-  // ---------------
-  // ================================
+  router.post(
+    '/update',
+    validate(ValidationSchema.user.updateUser),
+    authenticateForUser,
+    updateUser,
+  )
 
-  return router;
-};
+  router.post(
+    '/resetPassword',
+    validate(ValidationSchema.user.resetPassword),
+    authenticateForUser,
+    resetPassword,
+  )
+
+  router.post('/login', validate(ValidationSchema.user.login), login)
+
+  router.get('/', authenticateForUser, details)
+
+  router.get('/list', authenticateForAdmin, userList)
+
+  return router
+}

@@ -15,3 +15,4 @@ const productSchema = new Schema<IProduct>(
 )
 
 export const ProductModel = model('Product', productSchema, 'products')
+export const ProductSchema = productSchema

@@ -32,13 +32,12 @@ export type IProduct = {
 }
 
 export type OrderItem = {
-  product: string // product id
+  product: IProduct // product
   price: number // product price at the time of purchase
   quantity: number
 }
 
 export type IOrder = {
-  orderId: string // order id;
   user: string // user id;
   items: OrderItem[]
   total: number
