@@ -45,7 +45,7 @@ export type IOrder = {
 }
 
 export type IReview = {
-  description: string
+  comment: string
   user: string
   product: string
   rating: number

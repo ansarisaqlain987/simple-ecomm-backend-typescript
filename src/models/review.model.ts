@@ -1,16 +1,16 @@
-import { Schema, model } from 'mongoose';
-import { IReview } from '../types';
+import { Schema, model } from 'mongoose'
+import { IReview } from '../types'
 
 const reviewSchema = new Schema<IReview>(
   {
-    description: { type: String, required: true },
+    comment: { type: String, required: true },
     user: { type: String, required: true },
     product: { type: String, required: true },
-    rating: { type: Number, required: true, default: 0 },
+    rating: { type: Number, required: true, default: -1 },
   },
   {
     timestamps: true,
   },
-);
+)
 
-export const ProductModel = model('Review', reviewSchema, 'reviews');
+export const ReviewModel = model('Review', reviewSchema, 'reviews')

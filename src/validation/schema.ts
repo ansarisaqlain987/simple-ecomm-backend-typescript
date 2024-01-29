@@ -65,4 +65,11 @@ export const ValidationSchema = {
       quantity: 'required|number|min:1',
     },
   },
+  review: {
+    addReview: {
+      product: 'string|required',
+      rating: 'number|required|min:-1|max:5',
+      comment: 'required|string',
+    },
+  },
 }
