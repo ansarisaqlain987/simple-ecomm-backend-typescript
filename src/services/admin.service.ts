@@ -1,7 +1,7 @@
 import { AdminModel } from '../models/admin.model'
 import { Document, IAdmin } from '../types'
 
-export const createAdmin = async (data: IAdmin): Promise<Document> => {
+export const createAdmin = async (data: IAdmin): Promise<Document<IAdmin>> => {
   const admin = await AdminModel.create({
     email: data?.email?.toLowerCase(),
     password: data?.password,
