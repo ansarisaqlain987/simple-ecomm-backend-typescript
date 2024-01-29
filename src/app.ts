@@ -5,6 +5,7 @@ import { config } from 'dotenv'
 import { Logger } from './utils/logger.util'
 import { ConnectDB } from './config/app.config'
 
+import cors from 'cors'
 if (process.env.NODE_ENV !== 'prod') {
   const data = config()
   if (data.error) {
@@ -15,7 +16,13 @@ if (process.env.NODE_ENV !== 'prod') {
 }
 const app: Express = express()
 
-ConnectDB()
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(cors())
+
+;(async function () {
+  await ConnectDB()
+})()
 
 getRoutes(app)
 
