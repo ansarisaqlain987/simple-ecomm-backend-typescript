@@ -1,5 +1,5 @@
-import { Schema, model } from 'mongoose';
-import { IOrder } from '../types';
+import { Schema, model } from 'mongoose'
+import { IOrder } from '../types'
 
 const orderSchema = new Schema<IOrder>(
   {
@@ -18,6 +18,6 @@ const orderSchema = new Schema<IOrder>(
   {
     timestamps: true,
   },
-);
+)
 
-export const ProductModel = model('Order', orderSchema, 'orders');
+export const OrderModel = model('Order', orderSchema, 'orders')

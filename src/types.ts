@@ -28,6 +28,7 @@ export type IProduct = {
   description: string
   images: string[]
   price: number
+  active?: boolean
 }
 
 export type OrderItem = {
