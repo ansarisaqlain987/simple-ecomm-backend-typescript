@@ -12,7 +12,8 @@ import { Logger } from '../utils/logger.util'
 export const authenticateRequest = (userType?: AllowedUsers) => {
   return (request: Request, response: Response, next: NextFunction) => {
     const token = request.get('authorization')
-    if (!token) {
+    const authToken = token?.split(' ')[1] ?? ''
+    if (!token || !authToken) {
       return response.status(401).send({
         data: null,
         errors: ['Please provide a valid authentication token'],
@@ -20,7 +21,7 @@ export const authenticateRequest = (userType?: AllowedUsers) => {
     }
 
     try {
-      const decryptToken = decrypt(token, SECRET)
+      const decryptToken = decrypt(authToken, SECRET)
       const obj: ITokenData = verifyToken(
         decryptToken,
         JWT_SECRET,
