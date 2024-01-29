@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import { Logger } from '../src/utils/logger.util'
-import { AdminModel } from '../src/models/admin.model'
+// import { AdminModel } from '../src/models/admin.model'
 import { UserModel } from '../src/models/user.model'
 import { ProductModel } from '../src/models/products.model'
 import { ReviewModel } from '../src/models/review.model'
@@ -28,9 +28,23 @@ export const disconnectDbForTesting = async () => {
 }
 
 export const dropAllCollections = async () => {
-  await AdminModel.collection.drop()
+  // await AdminModel.collection.drop()
   await UserModel.collection.drop()
   await ProductModel.collection.drop()
   await ReviewModel.collection.drop()
   await OrderModel.collection.drop()
+}
+
+export const describeTest = (dsc: string, fn: () => void) => {
+  describe(dsc, () => {
+    beforeAll(async () => {
+      await connectDbForTesting()
+    })
+
+    fn()
+    afterAll(async () => {
+      await dropAllCollections()
+      await disconnectDbForTesting()
+    })
+  })
 }

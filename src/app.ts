@@ -12,11 +12,14 @@ if (data.error) {
 }
 Logger.info('Environment variables parsed...')
 const app: Express = express()
-
 ;(async () => await ConnectDB())()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 getRoutes(app)
+
+app.use('*', (request, response) => {
+  return response.status(404).send({ message: 'Route not Found' })
+})
 
 export const App = app

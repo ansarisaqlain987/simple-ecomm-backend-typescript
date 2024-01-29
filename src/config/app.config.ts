@@ -9,6 +9,7 @@ export const PORT = process.env.PORT ?? 8000
 
 export const ConnectDB = async () => {
   try {
+    console.log('DB: ', DB_URL)
     await mongoose.connect(DB_URL)
   } catch (err) {
     Logger.info('Unable to connect to DB')

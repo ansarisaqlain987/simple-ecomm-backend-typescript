@@ -1,14 +1,15 @@
 import {
   connectDbForTesting,
   disconnectDbForTesting,
-  dropAllCollections,
-} from './loadTest.util'
+  // dropAllCollections,
+} from '../../loadTest.util'
 // import faker from "@faker-js/faker";
 import {
   createAdmin,
   getAdminByEmail,
   updateAdminDetails,
-} from '../src/services/admin.service'
+} from '../../../src/services/admin.service'
+import { AdminModel } from '../../../src/models/admin.model'
 describe('Admin Service', () => {
   beforeAll(async () => {
     await connectDbForTesting()
@@ -45,7 +46,7 @@ describe('Admin Service', () => {
   })
 
   afterAll(async () => {
-    await dropAllCollections()
+    await AdminModel.collection.drop()
     await disconnectDbForTesting()
   })
 })
